@@ -1,0 +1,36 @@
+{
+  "name": "create-shalloteer",
+  "version": "0.2.15",
+  "description": "Create a new Shalloteer game project",
+  "type": "module",
+  "bin": {
+    "create-shalloteer": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "template"
+  ],
+  "scripts": {
+    "test": "node index.js test-project"
+  },
+  "keywords": [
+    "shalloteer",
+    "game-engine",
+    "create",
+    "scaffold",
+    "template"
+  ],
+  "author": "dylanebert",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylanebert/shalloteer.git"
+  },
+  "homepage": "https://github.com/dylanebert/shalloteer#readme",
+  "bugs": {
+    "url": "https://github.com/dylanebert/shalloteer/issues"
+  },
+  "dependencies": {
+    "kolorist": "^1.8.0"
+  }
+}

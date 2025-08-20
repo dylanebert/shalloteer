@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun install:*)",
+      "Bash(bun run:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "Bash(sed:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(node:*)",
+      "WebSearch",
+      "Bash(find:*)",
+      "Bash(bun test:*)",
+      "Bash(git stash:*)",
+      "Bash(bunx tsc:*)",
+      "Bash(bunx eslint:*)",
+      "Bash(bun add:*)",
+      "Bash(bunx playwright:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_evaluate",
+      "Bash(bunx vitest:*)",
+      "Bash(pkill:*)",
+      "Bash(bun:*)",
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:rapier.rs)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
