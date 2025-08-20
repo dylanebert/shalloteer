@@ -1,0 +1,13 @@
+{
+  "folders": ["docs"],
+  "excludeFolders": [
+    "src",
+    "example",
+    "tests",
+    "dist",
+    "node_modules",
+    "layers",
+    "scripts"
+  ],
+  "excludeFiles": ["CHANGELOG.md", "LICENSE", "package-lock.json"]
+}
