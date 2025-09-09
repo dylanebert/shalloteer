@@ -37,6 +37,7 @@ core/
 │   └── index.ts
 ├── utils/  # Core utilities
 │   ├── naming.ts
+│   ├── logger.ts  # Structured logging
 │   └── index.ts
 └── index.ts  # Core exports
 ```

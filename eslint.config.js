@@ -181,7 +181,7 @@ export default [
     ignores: [
       'dist/**',
       'node_modules/**',
-      'example/dist/**',
+      'example/**',
       '*.js',
       '**/*.test.js',
     ],

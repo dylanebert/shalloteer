@@ -14,3 +14,5 @@ export function shalloteer(): Plugin[] {
     },
   ];
 }
+
+export { consoleForwarding } from './console-plugin';

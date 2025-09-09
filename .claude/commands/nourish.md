@@ -22,6 +22,7 @@ Traverse upward through context tiers (see CLAUDE.md):
 
 - **Tier 2**: Update relevant `context.md` files to reflect current code state
 - **Tier 1**: Update `layers/structure.md` if structure/commands/stack changed
+- **llms.txt**: Update `layers/llms-template.txt` if engine usage patterns changed
 - Follow all rules from CLAUDE.md, especially "No History" principle
 
 ### 3. Apply Cleanup

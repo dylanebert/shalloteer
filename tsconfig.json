@@ -28,6 +28,6 @@
       "shalloteer/defaults": ["./src/plugins/defaults.ts"]
     }
   },
-  "include": ["src/**/*", "tests/**/*", "example/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist", "example"]
 }

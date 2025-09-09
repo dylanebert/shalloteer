@@ -2,6 +2,8 @@
 
 Shalloteer - A vibe coding game engine using ECS architecture with bitECS, featuring a Bevy-inspired plugin system and A-frame-style declarative XML recipes.
 
+**Required**: Read [llms.txt](llms.txt) to understand current project
+
 ## Stack
 
 - Runtime: Bun/Node.js
@@ -12,10 +14,15 @@ Shalloteer - A vibe coding game engine using ECS architecture with bitECS, featu
 ## Commands
 
 - Build: `bun run build` (production build)
+- Build: `bun run build:release` (release build)
 - Example: `bun run example` (build and run demo application)
 - Type Check: `bun run check` (TypeScript validation)
 - Lint: `bun run lint --fix` (ESLint code analysis and formatting)
 - Test: `bun test` (Unit and integration tests)
+
+## llms.txt
+
+An [llms.txt](../llms.txt) is provided to make the engine usable and optimized for large language models. It is automatically built from [layers/llms-template.txt](llms-template.txt) on `bun run build:release`. The template contains comprehensive usage patterns, and automatically pulls in additional reference material from context.md files on build.
 
 ## Layout
 
@@ -43,8 +50,10 @@ shalloteer/
 │   │   ├── transforms/  # Transform hierarchy
 │   │   ├── tweening/  # Tween animations
 │   │   └── defaults.ts  # Default plugin bundle
-│   ├── vite/  # Vite plugin
-│   │   └── index.ts  # WASM setup plugin
+│   ├── vite/  # Vite plugins
+│   │   ├── index.ts  # Plugin exports
+│   │   ├── console-plugin.ts  # Console forwarding
+│   │   └── context.md  # Module context
 │   ├── builder.ts  # Builder pattern API
 │   ├── runtime.ts  # Game runtime engine
 │   └── index.ts  # Main exports
@@ -56,7 +65,8 @@ shalloteer/
 │   └── vite.config.ts
 ├── layers/
 │   ├── structure.md  # Project-level context (Tier 1)
-│   └── context-template.md  # Template for context files
+│   ├── context-template.md  # Template for context files
+|   └── llms-template.md # Template for llms.txt
 ├── dist/  # Built output
 ├── tests/
 │   ├── unit/  # Unit tests
