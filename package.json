@@ -1,6 +1,6 @@
 {
   "name": "shalloteer",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "a vibe coding game engine",
   "type": "module",
   "module": "./dist/index.js",

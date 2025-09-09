@@ -175,7 +175,7 @@ describe('GameRuntime', () => {
   it('should process world element with sky attribute', async () => {
     document.body.innerHTML = `
       <canvas id="game-canvas"></canvas>
-      <world canvas="#game-canvas" sky="0x87CEEB"></world>
+      <world canvas="#game-canvas" sky="#87CEEB"></world>
     `;
 
     state.registerRecipe({ name: 'world', components: [] });

@@ -137,6 +137,19 @@ async function buildLLMDocs() {
     })
     .join('\n');
 
+  // Generate embedded references section for llms.txt
+  const embeddedReferences = Array.from(references.entries())
+    .sort(([a], [b]) => {
+      if (a === 'core') return -1;
+      if (b === 'core') return 1;
+      return a.localeCompare(b);
+    })
+    .map(([key, content]) => {
+      const name = formatModuleName(key);
+      return `### ${name}\n\n${content}`;
+    })
+    .join('\n\n');
+
   // Replace placeholders
   template = template.replace('{{MODULES}}', modulesSection);
   template = template.replace(
@@ -148,10 +161,17 @@ async function buildLLMDocs() {
     examplesLinks || '- Examples coming soon'
   );
 
+  // Add embedded references if they exist
+  if (embeddedReferences) {
+    template = template.replace('{{EMBEDDED_REFERENCES}}', embeddedReferences);
+  }
+
   // Write llms.txt
   const outputPath = path.join(ROOT_DIR, 'llms.txt');
   await fs.writeFile(outputPath, template);
-  console.log(`✓ Generated llms.txt`);
+  console.log(
+    `✓ Generated llms.txt with ${references.size} embedded references`
+  );
 
   // Create docs directories
   const docsDir = path.join(ROOT_DIR, 'docs');

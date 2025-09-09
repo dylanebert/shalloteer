@@ -16,13 +16,13 @@
   </head>
 
   <body>
-    <world canvas="#game-canvas" sky="0x87ceeb">
+    <world canvas="#game-canvas" sky="#87ceeb">
       <!-- Ground -->
       <static-part
         pos="0 -0.5 0"
         shape="box"
         size="50 1 50"
-        color="0x90ee90"
+        color="#90ee90"
       ></static-part>
 
       <!-- Ball -->
@@ -30,7 +30,7 @@
         pos="-2 4 -3"
         shape="sphere"
         size="1"
-        color="0xff4500"
+        color="#ff4500"
       ></dynamic-part>
     </world>
 
@@ -38,17 +38,7 @@
 
     <script type="module">
       import * as GAME from 'shalloteer';
-
-      const System = {
-        setup: (state) => {
-          const recipeNames = state.getRecipeNames();
-          for (const recipeName of recipeNames) {
-            console.log(recipeName);
-          }
-        }
-      };
-
-      GAME.withSystem(System).run();
+      GAME.run();
     </script>
   </body>
 </html>

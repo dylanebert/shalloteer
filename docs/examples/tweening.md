@@ -8,7 +8,7 @@
 <!-- Animate Y position from 5 to 10 over 2 seconds -->
 <kinematic-part pos="0 5 -5">
   <tween 
-    target="transform.pos-y" 
+    target="body.pos-y" 
     from="5" 
     to="10" 
     duration="2" 
@@ -59,7 +59,7 @@ const MySystem = {
     state.addComponent(entity, GAME.Transform);
     
     // Create tween programmatically
-    GAME.createTween(state, entity, 'transform.pos-y', {
+    GAME.createTween(state, entity, 'body.pos-y', {
       from: 0,
       to: 10,
       duration: 2,
@@ -74,11 +74,11 @@ const MySystem = {
 
 ```xml
 <!-- Platform with multiple animated properties -->
-<kinematic-part pos="0 0 0" color="0xff0000">
+<kinematic-part pos="0 0 0" color="#ff0000">
   <!-- Position animation -->
-  <tween target="transform.pos-x" from="-5" to="5" duration="3" loop="ping-pong"></tween>
+  <tween target="body.pos-x" from="-5" to="5" duration="3" loop="ping-pong"></tween>
   <!-- Rotation animation -->
-  <tween target="transform.euler-y" to="360" duration="10" loop="loop"></tween>
+  <tween target="body.euler-y" to="360" duration="10" loop="loop"></tween>
   <!-- Scale pulse -->
   <tween target="transform.scale-x" from="1" to="1.5" duration="1" ease="sine-in-out" loop="ping-pong"></tween>
   <tween target="transform.scale-z" from="1" to="1.5" duration="1" ease="sine-in-out" loop="ping-pong"></tween>

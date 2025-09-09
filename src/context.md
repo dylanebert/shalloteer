@@ -1,7 +1,5 @@
 # Source Code
 
-Main source directory for Shalloteer game engine
-
 <!-- LLM:OVERVIEW -->
 Entry point for Shalloteer, a 3D game engine using ECS architecture with bitECS. Provides builder pattern API for configuration, runtime engine for execution, and plugin system for extensibility.
 <!-- /LLM:OVERVIEW -->

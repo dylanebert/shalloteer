@@ -6,7 +6,7 @@
 
 ```xml
 <!-- Declarative scene with lighting and rendered objects -->
-<world canvas="#game-canvas" sky="0x87ceeb">
+<world canvas="#game-canvas" sky="#87ceeb">
   <!-- Default lighting -->
   <light></light>
   
@@ -31,13 +31,13 @@
 ```xml
 <!-- Separate ambient and directional lights -->
 <ambient-light 
-  sky-color="0xffd4a3"
-  ground-color="0x808080"
+  sky-color="#ffd4a3"
+  ground-color="#808080"
   intensity="0.4"
 />
 
 <directional-light
-  color="0xffffff"
+  color="#ffffff"
   intensity="1.5"
   direction-x="-1"
   direction-y="3"

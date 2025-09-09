@@ -79,7 +79,7 @@ const engine = GAME.builder()
 
 // Load XML scene
 const sceneXML = `
-  <world clear-color="0x87ceeb">
+  <world clear-color="#87ceeb">
     <ambient-light intensity="0.5"></ambient-light>
     <directional-light directional="dir: 1 -1 1"></directional-light>
     

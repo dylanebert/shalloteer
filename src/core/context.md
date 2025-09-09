@@ -1,7 +1,7 @@
 # Core Module
 
 <!-- LLM:OVERVIEW -->
-Engine foundation providing Entity Component System (ECS) architecture, XML parsing for declarative entity creation, and essential utilities. The core module exports the State class for world management, plugin system interfaces, and bitECS integration.
+Entity Component System foundation with State management and plugin architecture.
 <!-- /LLM:OVERVIEW -->
 
 ## Purpose
@@ -75,149 +75,99 @@ The engine uses a semi-fixed timestep model with three execution phases:
 3. **DrawBatch**: Runs once per frame for rendering with interpolation
 
 <!-- LLM:REFERENCE -->
-## API Reference
-
 ### State Class
-
-Central game state managing entities, components, systems, and plugins.
 
 #### Methods
 
-- `createEntity(): number` - Create a new entity and return its ID
-- `destroyEntity(eid: number): void` - Remove an entity from the world
-- `addComponent<T>(eid: number, component: T, values?: Record<string, number>): void` - Add component to entity with optional initial values
-- `removeComponent<T>(eid: number, component: T): void` - Remove component from entity
-- `hasComponent<T>(eid: number, component: T): boolean` - Check if entity has component
-- `query<T>(...components: T): number[]` - Get all entities with specified components
-- `registerPlugin(plugin: Plugin): void` - Register a plugin with its components, systems, recipes, and config
-- `registerSystem(system: System): void` - Register a system for execution
-- `registerRecipe(recipe: Recipe): void` - Register an entity recipe
-- `registerComponent(name: string, component: Component): void` - Register a component by name
-- `registerConfig(config: Config): void` - Register configuration (parsers, defaults, enums, etc.)
-- `getRecipe(name: string): Recipe | undefined` - Get recipe by name
-- `getComponent(name: string): Component | undefined` - Get component by kebab-case name
-- `getParser(tag: string): Parser | undefined` - Get XML tag parser
-- `step(deltaTime?: number): void` - Execute one frame step with all systems
-- `dispose(): void` - Clean up all systems and resources
+- createEntity(): number
+- destroyEntity(eid: number): void
+- addComponent(eid, component, values?): void
+- removeComponent(eid, component): void
+- hasComponent(eid, component): boolean
+- query(...components): number[]
+- registerPlugin(plugin): void
+- registerSystem(system): void
+- registerRecipe(recipe): void
+- registerComponent(name, component): void
+- registerConfig(config): void
+- getRecipe(name): Recipe | undefined
+- getComponent(name): Component | undefined
+- getParser(tag): Parser | undefined
+- step(deltaTime?): void
+- dispose(): void
 
 #### Properties
 
-- `world: IWorld` - The bitECS world instance
-- `time: GameTime` - Time tracking object with deltaTime, fixedDeltaTime, elapsed
-- `scheduler: Scheduler` - System scheduler managing execution order
-- `systems: Set<System>` - Registered systems
-- `config: ConfigRegistry` - Configuration registry
+- world: IWorld
+- time: GameTime
+- scheduler: Scheduler
+- systems: Set<System>
+- config: ConfigRegistry
 
-### Type Definitions
+### Types
 
 #### System
-
-```typescript
-interface System {
-  readonly update?: (state: State) => void;     // Called every frame
-  readonly setup?: (state: State) => void;      // Called once on registration
-  readonly dispose?: (state: State) => void;    // Called on cleanup
-  readonly group?: 'setup' | 'simulation' | 'fixed' | 'draw';
-  readonly first?: boolean;                     // Run first in group
-  readonly last?: boolean;                      // Run last in group
-  readonly before?: readonly System[];          // Run before these systems
-  readonly after?: readonly System[];           // Run after these systems
-}
-```
+- update?: (state) => void
+- setup?: (state) => void
+- dispose?: (state) => void
+- group?: 'setup' | 'simulation' | 'fixed' | 'draw'
+- first?: boolean
+- last?: boolean
+- before?: System[]
+- after?: System[]
 
 #### Plugin
-
-```typescript
-interface Plugin {
-  readonly systems?: readonly System[];         // Systems to register
-  readonly recipes?: readonly Recipe[];         // Entity recipes
-  readonly components?: Record<string, Component>; // Components by name
-  readonly config?: Config;                     // Plugin configuration
-}
-```
+- systems?: System[]
+- recipes?: Recipe[]
+- components?: Record<string, Component>
+- config?: Config
 
 #### Recipe
-
-```typescript
-interface Recipe {
-  readonly name: string;                        // Recipe tag name
-  readonly components?: string[];               // Component names to add
-  readonly overrides?: Record<string, number>;  // Default value overrides
-}
-```
+- name: string
+- components?: string[]
+- overrides?: Record<string, number>
 
 #### Config
-
-```typescript
-interface Config {
-  readonly parsers?: Record<string, Parser>;    // Custom XML tag parsers
-  readonly defaults?: Record<string, Record<string, number>>; // Component defaults
-  readonly shorthands?: Record<string, Record<string, ShorthandMapping>>; // Attribute shorthands
-  readonly enums?: Record<string, Record<string, EnumMapping>>; // Enum mappings
-  readonly validations?: ValidationRule[];      // Validation rules
-}
-```
+- parsers?: Record<string, Parser>
+- defaults?: Record<string, Record<string, number>>
+- shorthands?: Record<string, Record<string, ShorthandMapping>>
+- enums?: Record<string, Record<string, EnumMapping>>
+- validations?: ValidationRule[]
 
 #### GameTime
+- deltaTime: number
+- fixedDeltaTime: number (1/60)
+- elapsed: number
 
-```typescript
-interface GameTime {
-  deltaTime: number;        // Frame delta time in seconds
-  fixedDeltaTime: number;   // Fixed update timestep (1/60)
-  elapsed: number;          // Total elapsed time in seconds
-}
-```
+### Functions
 
-#### Parser
+#### XMLParser.parse(xmlString): XMLParseResult
+Parses XML to element tree
 
-```typescript
-type Parser = (entity: number, element: ParsedElement, state: State) => void;
-```
+#### toKebabCase(str): string
+PascalCase to kebab-case
 
-### XML Parser
+#### toCamelCase(str): string
+kebab-case to camelCase
 
-#### XMLParser.parse(xmlString: string): XMLParseResult
+#### lerp(a, b, t): number
+Linear interpolation
 
-Parses XML string into a structured element tree.
-
-```typescript
-interface ParsedElement {
-  tagName: string;                          // Lowercase tag name
-  attributes: Record<string, XMLValue>;     // Parsed attributes
-  children: ParsedElement[];                // Child elements
-}
-
-type XMLValue = string | number | boolean | number[];
-```
-
-### Utility Functions
-
-#### Naming Utilities
-
-- `toKebabCase(str: string): string` - Convert PascalCase/camelCase to kebab-case
-- `toCamelCase(str: string): string` - Convert kebab-case to camelCase
-
-#### Math Utilities
-
-- `lerp(a: number, b: number, t: number): number` - Linear interpolation
-- `slerp(qa: Quaternion, qb: Quaternion, t: number): Quaternion` - Spherical linear interpolation for quaternions
+#### slerp(qa, qb, t): Quaternion
+Quaternion interpolation
 
 ### Constants
 
-- `NULL_ENTITY: 4294967295` - Invalid entity ID constant (-1 JS Number -> 4294967295 WASM uint32)
-- `TIME_CONSTANTS.FIXED_TIMESTEP: 1/60` - Fixed update rate (60 FPS)
-- `TIME_CONSTANTS.DEFAULT_DELTA: 1/144` - Default frame delta (144 FPS)
+- NULL_ENTITY: 4294967295
+- FIXED_TIMESTEP: 1/60
+- DEFAULT_DELTA: 1/144
 
-### Re-exported from bitECS
+### bitECS Exports
 
-- `defineComponent(schema: ComponentSchema): Component` - Define a new component
-- `Types` - bitECS type definitions (f32, i32, ui8, etc.)
-- `addComponent(world, component, eid)` - Low-level component addition
-- `removeComponent(world, component, eid)` - Low-level component removal
-- `hasComponent(world, component, eid)` - Low-level component check
-- `addEntity(world)` - Low-level entity creation
-- `removeEntity(world, eid)` - Low-level entity removal
-- `createWorld()` - Create a new ECS world
+- defineComponent(schema): Component
+- Types - f32, i32, ui8, etc.
+- addComponent, removeComponent, hasComponent
+- addEntity, removeEntity, createWorld
 <!-- /LLM:REFERENCE -->
 
 <!-- LLM:EXAMPLES -->

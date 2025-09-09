@@ -207,7 +207,7 @@ describe('Physics Recipes', () => {
             pos="0 10 0"
             shape="box"
             size="10 2 6"
-            color="0xff0000" />
+            color="#ff0000" />
         </root>
       `;
 
@@ -359,7 +359,7 @@ describe('Physics Recipes', () => {
             pos="0 2 0"
             shape="box"
             size="3 0.2 3"
-            color="0x4169e1"
+            color="#4169e1"
           >
             <tween
               target="body.pos-y"

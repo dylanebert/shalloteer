@@ -20,7 +20,7 @@ describe('XML Parser', () => {
       const xml = `
         <world>
           <entity pos="0 1 0" euler="0 45 0">
-            <box size="1 1 1" color="0xff0000"></box>
+            <box size="1 1 1" color="#ff0000"></box>
             <rigidbody type="dynamic"></rigidbody>
           </entity>
         </world>
@@ -100,12 +100,22 @@ describe('XML Parser', () => {
       expect(XMLValueParser.parse('1.5 2.5')).toEqual({ x: 1.5, y: 2.5 });
     });
 
-    it('should parse hex colors', () => {
+    it('should parse hex colors with 0x prefix', () => {
       expect(XMLValueParser.parse('0xff0000')).toBe(16711680);
       expect(XMLValueParser.parse('0x00ff00')).toBe(65280);
       expect(XMLValueParser.parse('0x0000ff')).toBe(255);
       expect(XMLValueParser.parse('0xffffff')).toBe(16777215);
       expect(XMLValueParser.parse('0x000000')).toBe(0);
+    });
+
+    it('should parse hex colors with # prefix', () => {
+      expect(XMLValueParser.parse('#ff0000')).toBe(16711680);
+      expect(XMLValueParser.parse('#00ff00')).toBe(65280);
+      expect(XMLValueParser.parse('#0000ff')).toBe(255);
+      expect(XMLValueParser.parse('#ffffff')).toBe(16777215);
+      expect(XMLValueParser.parse('#000000')).toBe(0);
+      expect(XMLValueParser.parse('#FF0000')).toBe(16711680);
+      expect(XMLValueParser.parse('#FFFFFF')).toBe(16777215);
     });
 
     it('should parse strings', () => {

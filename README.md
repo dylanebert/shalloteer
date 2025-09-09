@@ -11,12 +11,12 @@ npm install shalloteer
 ```
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
+<world canvas="#game-canvas" sky="#87ceeb">
   <!-- Ground -->
-  <static-part pos="0 -0.5 0" shape="box" size="20 1 20" color="0x90ee90"></static-part>
+  <static-part pos="0 -0.5 0" shape="box" size="20 1 20" color="#90ee90"></static-part>
 
   <!-- Ball -->
-  <dynamic-part pos="-2 4 -3" shape="sphere" size="1" color="0xff4500"></dynamic-part>
+  <dynamic-part pos="-2 4 -3" shape="sphere" size="1" color="#ff4500"></dynamic-part>
 </world>
 
 <canvas id="game-canvas"></canvas>
@@ -53,7 +53,7 @@ Live bevy, uses an Entity Component System architecture with Plugins:
 Entities and components defined declaratively in HTML:
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
+<world canvas="#game-canvas" sky="#87ceeb">
   <static-part pos="0 -0.5 0" shape="box" size="20 1 20"></static-part>
 </world>
 ```
@@ -75,7 +75,7 @@ Game-ready features out of the box:
 All entities are defined within the `<world>` tag:
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
+<world canvas="#game-canvas" sky="#87ceeb">
   <!-- All entities and components here -->
 </world>
 ```
@@ -85,7 +85,7 @@ All entities are defined within the `<world>` tag:
 Entities and components can be defined with a CSS-like syntax:
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
+<world canvas="#game-canvas" sky="#87ceeb">
   <entity
     transform
     body="type: 1; pos: 0 -0.5 0"
@@ -98,7 +98,7 @@ Entities and components can be defined with a CSS-like syntax:
 or, with CSS-style shorthand expansion:
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
+<world canvas="#game-canvas" sky="#87ceeb">
   <entity
     transform
     renderer
@@ -107,7 +107,7 @@ or, with CSS-style shorthand expansion:
     body="type: 1"
     shape="box"
     size="20 1 20"
-    color="0x90ee90"
+    color="#90ee90"
   ></entity>
 </world>
 ```
@@ -115,8 +115,8 @@ or, with CSS-style shorthand expansion:
 or, with recipes (entity-component bundles):
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
-  <static-part pos="0 -0.5 0" shape="box" size="20 1 20" color="0x90ee90"></static-part>
+<world canvas="#game-canvas" sky="#87ceeb">
+  <static-part pos="0 -0.5 0" shape="box" size="20 1 20" color="#90ee90"></static-part>
 </world>
 ```
 
@@ -125,8 +125,8 @@ or, with recipes (entity-component bundles):
 Register custom systems and components to handle arbitrary game logic:
 
 ```html
-<world canvas="#game-canvas" sky="0x87ceeb">
-  <static-part pos="0 -0.5 0" shape="box" size="20 1 20" color="0x90ee90"></static-part>
+<world canvas="#game-canvas" sky="#87ceeb">
+  <static-part pos="0 -0.5 0" shape="box" size="20 1 20" color="#90ee90"></static-part>
 
   <!-- Entity with custom component -->
   <entity my-component="10"></entity>

@@ -71,7 +71,7 @@ describe('Rendering Recipes', () => {
     });
 
     it('should handle root element with canvas and sky attributes', () => {
-      const xml = `<root canvas="#game-canvas" sky="0x87ceeb"><light></light><entity renderer="shape: box"></entity></root>`;
+      const xml = `<root canvas="#game-canvas" sky="#87ceeb"><light></light><entity renderer="shape: box"></entity></root>`;
 
       const parsed = XMLParser.parse(xml);
       const rootElement = parsed.root;
@@ -87,7 +87,7 @@ describe('Rendering Recipes', () => {
 
   describe('Custom Lighting', () => {
     it('should create separate ambient and directional lights', () => {
-      const xml = `<root><ambient-light sky-color="0xffd4a3" ground-color="0x808080" intensity="0.4" /><directional-light color="0xffffff" intensity="1.5" direction-x="-1" direction-y="3" direction-z="-0.5" cast-shadow="1" shadow-map-size="2048" /></root>`;
+      const xml = `<root><ambient-light sky-color="#ffd4a3" ground-color="#808080" intensity="0.4" /><directional-light color="#ffffff" intensity="1.5" direction-x="-1" direction-y="3" direction-z="-0.5" cast-shadow="1" shadow-map-size="2048" /></root>`;
 
       const parsed = XMLParser.parse(xml);
       const entities = parseXMLToEntities(state, parsed.root);

@@ -88,7 +88,7 @@ import * as GAME from 'shalloteer';
 const xml = `
   <world>
     <entity pos="0 1 0" euler="0 45 0">
-      <box size="1 1 1" color="0xff0000"></box>
+      <box size="1 1 1" color="#ff0000"></box>
       <rigidbody type="dynamic"></rigidbody>
     </entity>
   </world>

@@ -1,7 +1,7 @@
 # Respawn Plugin
 
 <!-- LLM:OVERVIEW -->
-Automatic respawn system that resets entity position and state when they fall out of bounds. Included by default in player entities to handle falling off the world. Triggers when entities fall below Y=-100.
+Automatic respawn system that resets entities when falling below Y=-100.
 <!-- /LLM:OVERVIEW -->
 
 ## Layout
@@ -32,41 +32,17 @@ respawn/
 - **External**: None
 
 <!-- LLM:REFERENCE -->
-## API Reference
-
 ### Components
 
 #### Respawn
-Stores the spawn position and rotation for an entity. When respawn triggers, the entity returns to this position.
-
-**Properties:**
-- `posX: f32` - Spawn X position
-- `posY: f32` - Spawn Y position  
-- `posZ: f32` - Spawn Z position
-- `eulerX: f32` - Spawn rotation X (degrees)
-- `eulerY: f32` - Spawn rotation Y (degrees)
-- `eulerZ: f32` - Spawn rotation Z (degrees)
+- posX, posY, posZ: f32 - Spawn position
+- eulerX, eulerY, eulerZ: f32 - Spawn rotation (degrees)
 
 ### Systems
 
 #### RespawnSystem
-Monitors entities with `Respawn` and `WorldTransform` components. Triggers respawn when `WorldTransform.posY` falls below -100.
-
-**Behavior:**
-- Runs in `simulation` group
-- Resets position to stored spawn point
-- Clears velocities for physics bodies
-- Resets character controller state
-- Resets player jump state
-
-### Plugin Exports
-
-```typescript
-export const RespawnPlugin: Plugin = {
-  components: { Respawn },
-  systems: [RespawnSystem]
-}
-```
+- Group: simulation
+- Resets entities when Y < -100
 <!-- /LLM:REFERENCE -->
 
 <!-- LLM:EXAMPLES -->

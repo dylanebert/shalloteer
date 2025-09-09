@@ -1,7 +1,7 @@
 # Orbit Camera Plugin
 
 <!-- LLM:OVERVIEW -->
-Orbital camera controller that smoothly orbits around a target entity in 3D space. Use for third-person views, character following, and cinematic camera movements.
+Orbital camera controller for third-person views and smooth target following.
 <!-- /LLM:OVERVIEW -->
 
 ## Purpose
@@ -55,58 +55,36 @@ orbit-camera/
 - **orbitCamera**: Default orbital camera setup
 
 <!-- LLM:REFERENCE -->
-## API Reference
-
 ### Components
 
 #### OrbitCamera
-
-Controls orbital camera behavior around a target entity.
-
-**Properties:**
-- `target` (eid, default: 0) - Entity ID to orbit around
-- `current-yaw` (f32, default: π) - Current horizontal rotation angle in radians
-- `current-pitch` (f32, default: π/6) - Current vertical rotation angle in radians  
-- `current-distance` (f32, default: 4) - Current distance from target
-- `target-yaw` (f32, default: π) - Target horizontal rotation angle
-- `target-pitch` (f32, default: π/6) - Target vertical rotation angle
-- `target-distance` (f32, default: 4) - Target distance from target
-- `min-distance` (f32, default: 1) - Minimum allowed distance
-- `max-distance` (f32, default: 25) - Maximum allowed distance
-- `min-pitch` (f32, default: 0) - Minimum pitch angle (looking down)
-- `max-pitch` (f32, default: π/2) - Maximum pitch angle (looking up)
-- `smoothness` (f32, default: 0.5) - Interpolation speed (0-1)
-- `offset-x` (f32, default: 0) - X offset from target position
-- `offset-y` (f32, default: 1.25) - Y offset from target position
-- `offset-z` (f32, default: 0) - Z offset from target position
+- target: eid (0) - Target entity ID
+- current-yaw: f32 (π) - Current horizontal angle
+- current-pitch: f32 (π/6) - Current vertical angle
+- current-distance: f32 (4) - Current distance
+- target-yaw: f32 (π) - Target horizontal angle
+- target-pitch: f32 (π/6) - Target vertical angle
+- target-distance: f32 (4) - Target distance
+- min-distance: f32 (1)
+- max-distance: f32 (25)
+- min-pitch: f32 (0)
+- max-pitch: f32 (π/2)
+- smoothness: f32 (0.5) - Interpolation speed
+- offset-x: f32 (0)
+- offset-y: f32 (1.25)
+- offset-z: f32 (0)
 
 ### Systems
 
 #### OrbitCameraSystem
-
-**Group:** `draw`
-
-Updates camera position and rotation each frame:
-- Smoothly interpolates current values toward target values
-- Calculates camera position based on yaw, pitch, and distance
-- Points camera at target entity with applied offsets
-- Respects min/max constraints for distance and pitch
+- Group: draw
+- Updates camera position and rotation around target
 
 ### Recipes
 
 #### camera
-
-Creates an orbital camera entity with default settings.
-
-**Components added:**
-- `orbit-camera` - Orbital camera controls
-- `transform` - Position and rotation
-- `world-transform` - World space transform
-- `main-camera` - Marks as main camera
-
-**Default overrides:**
-- `transform.pos-y`: 8
-- `transform.pos-z`: 10
+- Creates orbital camera with default settings
+- Components: orbit-camera, transform, world-transform, main-camera
 <!-- /LLM:REFERENCE -->
 
 <!-- LLM:EXAMPLES -->

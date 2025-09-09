@@ -29,7 +29,7 @@
   pos="0 5 0"
   euler="0 45 0"
   scale="2"
-  color="0xff0000"
+  color="#ff0000"
 />
 ```
 
@@ -98,6 +98,6 @@ try {
 <!-- Vector properties with broadcast -->
 <entity transform="scale: 2"></entity>  <!-- All axes set to 2 -->
 
-<!-- Quaternion (deprecated, use euler instead) -->
-<entity transform="rot: 0 0 0 1"></entity>
+<!-- Rotation using euler angles (degrees) -->
+<entity transform="euler: 0 45 0"></entity>
 ```

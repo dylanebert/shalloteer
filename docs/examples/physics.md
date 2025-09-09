@@ -12,7 +12,7 @@
   pos="0 -0.5 0"
   shape="box"
   size="20 1 20"
-  color="0x90ee90"
+  color="#90ee90"
 />
 ```
 
@@ -22,7 +22,7 @@
   pos="0 5 0"
   shape="sphere"
   radius="0.5"
-  color="0xff0000"
+  color="#ff0000"
   mass="2"
   restitution="0.8"
 />
@@ -34,7 +34,7 @@
   pos="0 2 0"
   shape="box"
   size="3 0.2 3"
-  color="0x4169e1"
+  color="#4169e1"
 >
   <!-- Add movement with tweening -->
   <tween

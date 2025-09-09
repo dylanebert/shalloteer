@@ -1,6 +1,6 @@
 import type { BuilderOptions } from './builder';
 import type { State } from './core';
-import { TIME_CONSTANTS, XMLParser } from './core';
+import { TIME_CONSTANTS, XMLParser, XMLValueParser } from './core';
 import { initializePhysics } from './plugins/physics';
 import { parseXMLToEntities } from './plugins/recipes';
 import { RenderContext, setCanvasElement } from './plugins/rendering';
@@ -101,10 +101,10 @@ export class GameRuntime {
 
         const skyColor = element.getAttribute('sky');
         if (skyColor) {
-          RenderContext.clearColor[rendererEntity] = parseInt(
-            skyColor.replace('0x', ''),
-            16
-          );
+          const parsedColor = XMLValueParser.parse(skyColor);
+          if (typeof parsedColor === 'number') {
+            RenderContext.clearColor[rendererEntity] = parsedColor;
+          }
         }
 
         setCanvasElement(rendererEntity, canvas);

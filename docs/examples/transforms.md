@@ -28,18 +28,14 @@ const MySystem = {
   update: (state) => {
     const entity = state.createEntity();
     
-    // Add transform component
+    // Add transform component with initial values
     state.addComponent(entity, GAME.Transform, {
       posX: 10, posY: 5, posZ: -3,
+      eulerX: 0, eulerY: 45, eulerZ: 0,
       scaleX: 2, scaleY: 2, scaleZ: 2
     });
     
-    // Set rotation using euler angles
-    const quat = GAME.eulerToQuaternion(0, 45, 0);
-    GAME.Transform.rotX[entity] = quat.x;
-    GAME.Transform.rotY[entity] = quat.y;
-    GAME.Transform.rotZ[entity] = quat.z;
-    GAME.Transform.rotW[entity] = quat.w;
+    // Transform system automatically syncs euler to quaternion
   }
 };
 ```

@@ -265,7 +265,7 @@ describe('Builder-Runtime Integration', () => {
 
       document.body.innerHTML = `
         <canvas id="game-canvas"></canvas>
-        <world canvas="#game-canvas" sky="0x87CEEB">
+        <world canvas="#game-canvas" sky="#87CEEB">
           <player transform="pos: 0 0 0"></player>
         </world>
       `;
