@@ -6,6 +6,7 @@ Load relevant context for the current conversation.
 
 @CLAUDE.md
 @layers/structure.md
+@llms.txt
 
 User arguments: "$ARGUMENTS"
 

@@ -6,6 +6,7 @@ Complete conversation by updating context and applying cleanup.
 
 @CLAUDE.md
 @layers/structure.md
+@layers/llms-template.txt
 
 User arguments: "$ARGUMENTS"
 
