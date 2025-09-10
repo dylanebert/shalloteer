@@ -21,6 +21,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "jsx": "react",
+    "jsxFactory": "JSX.createElement",
+    "jsxFragmentFactory": "JSX.Fragment",
     "types": ["vite/client", "bun-types"],
     "baseUrl": ".",
     "paths": {

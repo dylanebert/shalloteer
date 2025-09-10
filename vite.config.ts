@@ -15,6 +15,12 @@ export default defineConfig({
     alias: {
       '@dimforge/rapier3d': '@dimforge/rapier3d-compat',
     },
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  esbuild: {
+    jsx: 'transform',
+    jsxFactory: 'JSX.createElement',
+    jsxFragment: 'JSX.Fragment',
   },
   build: {
     lib: {

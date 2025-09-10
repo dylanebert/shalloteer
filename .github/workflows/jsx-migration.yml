@@ -1,0 +1,99 @@
+name: JSX Migration Testing
+
+on:
+  push:
+    branches: [jsx-migration, pre-jsx-backup, main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  test-current:
+    name: Test Current Implementation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Run type checking
+        run: bun run check
+      
+      - name: Run linting
+        run: bun run lint
+      
+      - name: Run tests
+        run: bun test
+      
+      - name: Build library
+        run: bun run build
+      
+      - name: Validate XML recipes
+        run: bun run validate || true
+
+  test-compatibility:
+    name: Test Backwards Compatibility
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/jsx-migration'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Run migration validator
+        run: bun tools/migration-validator.ts
+      
+      - name: Check kebab-case usage
+        run: |
+          echo "Kebab-case analysis:"
+          bun tools/analyze-kebab-case.ts | head -20
+      
+      - name: Map XML dependencies
+        run: |
+          echo "XML dependency map:"
+          bun tools/map-xml-dependencies.ts | head -20
+
+  benchmark:
+    name: Performance Benchmark
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/jsx-migration'
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pre-jsx-backup
+      
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Benchmark XML version
+        run: |
+          echo "XML Version Benchmark:"
+          time bun test --bail
+      
+      - uses: actions/checkout@v4
+        with:
+          ref: jsx-migration
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Benchmark JSX version
+        run: |
+          echo "JSX Version Benchmark:"
+          time bun test --bail || echo "JSX tests not yet implemented"

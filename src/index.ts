@@ -2,6 +2,7 @@ import type { BuilderOptions } from './builder';
 import { GameBuilder } from './builder';
 import type { Component, Plugin, System } from './core';
 export { DefaultPlugins } from './plugins/defaults';
+export { GameBuilder } from './builder';
 
 export * from './core';
 export * from './plugins/animation';
