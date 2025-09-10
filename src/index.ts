@@ -1,6 +1,7 @@
 import type { BuilderOptions } from './builder';
 import { GameBuilder } from './builder';
 import type { Component, Plugin, System } from './core';
+import type { JSXElement } from './jsx';
 export { DefaultPlugins } from './plugins/defaults';
 export { GameBuilder } from './builder';
 
@@ -45,6 +46,10 @@ export function withComponent(name: string, component: Component) {
 
 export function configure(options: BuilderOptions) {
   return getBuilder().configure(options);
+}
+
+export function withJSX(element: JSXElement) {
+  return getBuilder().withJSX(element);
 }
 
 export function run() {

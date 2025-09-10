@@ -2,6 +2,7 @@ import type { Component, Config, Plugin, Recipe, System } from './core';
 import { State } from './core';
 import { GameRuntime } from './runtime';
 import { DefaultPlugins } from './plugins/defaults';
+import type { JSXElement } from './jsx';
 
 export interface BuilderOptions {
   canvas?: string;
@@ -18,6 +19,7 @@ export class GameBuilder {
   private components: Map<string, Component> = new Map();
   private recipes: Recipe[] = [];
   private configs: Config[] = [];
+  private jsxElement: JSXElement | null = null;
 
   constructor(options: BuilderOptions = {}) {
     this.state = new State();
@@ -69,6 +71,11 @@ export class GameBuilder {
     return this;
   }
 
+  withJSX(element: JSXElement): GameBuilder {
+    this.jsxElement = element;
+    return this;
+  }
+
   build(): GameRuntime {
     if (this.useDefaultPlugins) {
       for (const plugin of DefaultPlugins) {
@@ -96,7 +103,7 @@ export class GameBuilder {
       this.state.registerConfig(config);
     }
 
-    return new GameRuntime(this.state, this.options);
+    return new GameRuntime(this.state, this.options, this.jsxElement);
   }
 
   async run(): Promise<GameRuntime> {

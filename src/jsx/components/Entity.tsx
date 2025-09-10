@@ -13,7 +13,6 @@ export function processEntityElement(
   children?: JSXElement[],
   parent?: number
 ): number {
-  // Use direct entity creation instead of recipe bridge
   const entity = createEntityFromJSXProps(state, props, parent);
   
   if (children) {
@@ -34,7 +33,6 @@ export function processRecipeElement(
   children?: JSXElement[],
   parent?: number
 ): number {
-  // Use recipe-based entity creation for recipe components
   const entity = createEntityFromRecipeJSX(state, recipeName, props, parent);
   
   if (children) {
@@ -50,14 +48,12 @@ export function processRecipeElement(
 
 function processJSXChild(state: State, element: JSXElement, parent: number): void {
   if (typeof element.type === 'string') {
-    // Check if it's a recipe name
     const recipeNames = ['static-part', 'dynamic-part', 'kinematic-part', 'player', 'camera', 'ambient-light', 'directional-light'];
     if (recipeNames.includes(element.type)) {
       processRecipeElement(state, element.type, element.props, element.children, parent);
     } else if (element.type === 'entity') {
       processEntityElement(state, element.props, element.children, parent);
     }
-    // Ignore other element types (like 'tween' which might be handled elsewhere)
   } else if (typeof element.type === 'function') {
     const result = element.type(element.props);
     if (result) {

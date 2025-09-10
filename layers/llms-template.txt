@@ -1,6 +1,6 @@
 # Shalloteer
 
-A Roblox-like 3D game engine with declarative XML syntax and ECS architecture. Start playing immediately with automatic player, camera, and lighting - just add a ground to prevent falling.
+A Roblox-like 3D game engine with declarative XML/JSX syntax and ECS architecture. Start playing immediately with automatic player, camera, and lighting - just add a ground to prevent falling.
 
 ## Instant Playable Game
 
@@ -395,6 +395,65 @@ Recipes are registered component bundles with defaults:
   <tween target="body.pos-x" from="-5" to="5"></tween>
 </kinematic-part>
 ```
+
+## JSX/TSX Alternative
+
+Shalloteer also supports JSX syntax for type-safe component creation with IDE support:
+
+```tsx
+import * as GAME from 'shalloteer';
+import { World, StaticPart, DynamicPart, KinematicPart, Tween } from 'shalloteer/jsx';
+
+// Create game structure with JSX
+const gameStructure = World({
+  canvas: "#game-canvas",
+  sky: "#87ceeb",
+  children: [
+    // Ground
+    StaticPart({
+      pos: { x: 0, y: -0.5, z: 0 },
+      shape: "box",
+      size: { x: 20, y: 1, z: 20 },
+      color: 0x90ee90
+    }),
+    
+    // Dynamic ball
+    DynamicPart({
+      pos: { x: 0, y: 5, z: 0 },
+      shape: "sphere",
+      size: 1,
+      color: 0xff0000
+    }),
+    
+    // Moving platform
+    KinematicPart({
+      pos: { x: 0, y: 3, z: 0 },
+      shape: "box",
+      size: { x: 4, y: 0.5, z: 4 },
+      color: 0xffd700,
+      children: [
+        Tween({
+          target: "body.pos-x",
+          from: -5,
+          to: 5,
+          duration: 3,
+          loop: "ping-pong"
+        })
+      ]
+    })
+  ]
+});
+
+// Run the game
+GAME.withJSX(gameStructure).run();
+```
+
+### JSX Benefits
+- Type-safe with TypeScript
+- IDE autocomplete and IntelliSense
+- React-like familiar syntax
+- Compile-time validation
+- Works alongside XML approach
 
 ## Custom Components and Systems
 

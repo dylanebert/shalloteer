@@ -32,6 +32,33 @@ export const JSX: JSXFactory = {
   },
 };
 
+function applyPropsToEntity(
+  state: State,
+  entity: number,
+  props: Record<string, any>
+): void {
+  for (const [propName, propValue] of Object.entries(props)) {
+    if (propName === 'children' || propName === 'key' || propName === 'ref') {
+      continue;
+    }
+    
+    const component = state.getComponent(propName);
+    if (component) {
+      if (!state.hasComponent(entity, component)) {
+        state.addComponent(entity, component);
+      }
+      
+      if (typeof propValue === 'object' && propValue !== null && !Array.isArray(propValue)) {
+        for (const [fieldName, value] of Object.entries(propValue)) {
+          if (fieldName in component) {
+            (component as any)[fieldName][entity] = value;
+          }
+        }
+      }
+    }
+  }
+}
+
 export function processJSXElement(
   state: State,
   element: JSXElement,
@@ -42,8 +69,70 @@ export function processJSXElement(
     return null;
   }
 
-  console.warn('JSX element processing not yet implemented:', element);
-  return null;
+  if (typeof element.type === 'function') {
+    const resultElement = element.type(element.props);
+    return processJSXElement(state, resultElement, parent);
+  }
+
+  const tagName = element.type;
+  
+  if (tagName === 'tween' && parent !== undefined) {
+    const parser = state.getParser('tween');
+    if (parser) {
+      const parsedElement = {
+        tagName: 'tween',
+        attributes: element.props,
+        children: [],
+      };
+      return parser(parent, parsedElement as any, state);
+    } else {
+      console.warn('Tween parser not found - ensure TweenPlugin is loaded');
+      return null;
+    }
+  }
+  
+  const recipe = state.getRecipe(tagName);
+  
+  let entity: number;
+  
+  if (recipe) {
+    entity = state.createEntity();
+    
+    for (const componentName of recipe.components || []) {
+      const component = state.getComponent(componentName);
+      if (component) {
+        state.addComponent(entity, component);
+      }
+    }
+    
+    if (element.props) {
+      applyPropsToEntity(state, entity, element.props);
+    }
+  } else if (tagName === 'entity') {
+    entity = state.createEntity();
+    
+    if (element.props) {
+      applyPropsToEntity(state, entity, element.props);
+    }
+  } else {
+    console.warn(`Unknown JSX element type: ${tagName}`);
+    return null;
+  }
+  
+  if (parent !== undefined) {
+    const ParentComponent = state.getComponent('Parent');
+    if (ParentComponent) {
+      state.addComponent(entity, ParentComponent, { entity: parent });
+    }
+  }
+  
+  if (element.children) {
+    for (const child of element.children) {
+      processJSXElement(state, child, entity);
+    }
+  }
+  
+  return entity;
 }
 
 declare global {

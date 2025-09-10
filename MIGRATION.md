@@ -23,8 +23,8 @@ For new conversations: `/peel @MIGRATION.md` to load context.
 - JSX and XML coexistence verified
 
 ### Next Steps
-1. Create standalone JSX example (separate from XML demo)
-2. Document JSX usage patterns in llms.txt
+1. ✅ Create standalone JSX example (complete - example-jsx/)
+2. ✅ Document JSX usage patterns in llms.txt
 3. Phase 3: Kebab-to-camel conversion (102 occurrences)
 4. Phase 4: Deprecation warnings
 5. Phase 5: XML removal

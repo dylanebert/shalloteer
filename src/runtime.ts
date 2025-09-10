@@ -4,16 +4,20 @@ import { TIME_CONSTANTS, XMLParser, XMLValueParser } from './core';
 import { initializePhysics } from './plugins/physics';
 import { parseXMLToEntities } from './plugins/recipes';
 import { RenderContext, setCanvasElement } from './plugins/rendering';
+import type { JSXElement } from './jsx';
+import { processJSXElement } from './jsx';
 
 export class GameRuntime {
   private state: State;
   private options: BuilderOptions;
   private isRunning = false;
   private mutationObserver?: MutationObserver;
+  private jsxElement: JSXElement | null;
 
-  constructor(state: State, options: BuilderOptions = {}) {
+  constructor(state: State, options: BuilderOptions = {}, jsxElement: JSXElement | null = null) {
     this.state = state;
     this.options = options;
+    this.jsxElement = jsxElement;
   }
 
   async start(): Promise<void> {
@@ -72,7 +76,14 @@ export class GameRuntime {
     }
 
     await initializePhysics();
-    this.processWorldElements();
+    
+    // Process JSX if provided, otherwise process XML
+    if (this.jsxElement) {
+      this.processJSXWorld();
+    } else {
+      this.processWorldElements();
+    }
+    
     this.setupMutationObserver();
     this.state.step(TIME_CONSTANTS.FIXED_TIMESTEP);
   }
@@ -231,6 +242,45 @@ export class GameRuntime {
         `[XML Validation] Unclosed tags detected:\n  ${unclosed}\n` +
           `  Hint: Browser may have misinterpreted self-closing custom elements.`
       );
+    }
+  }
+
+  private processJSXWorld(): void {
+    if (!this.jsxElement) return;
+    
+    // Handle World component at the root
+    if (this.jsxElement.type === 'world' || this.jsxElement.type === 'World') {
+      const props = this.jsxElement.props;
+      
+      // Set up canvas if specified
+      if (props.canvas) {
+        const canvas = document.querySelector(props.canvas) as HTMLCanvasElement;
+        if (canvas) {
+          const rendererEntity = this.state.createEntity();
+          this.state.addComponent(rendererEntity, RenderContext);
+          RenderContext.hasCanvas[rendererEntity] = 1;
+          
+          // Set sky color if specified
+          if (props.sky) {
+            const parsedColor = XMLValueParser.parse(props.sky);
+            if (typeof parsedColor === 'number') {
+              RenderContext.clearColor[rendererEntity] = parsedColor;
+            }
+          }
+          
+          setCanvasElement(rendererEntity, canvas);
+        }
+      }
+      
+      // Process children
+      if (this.jsxElement.children) {
+        for (const child of this.jsxElement.children) {
+          processJSXElement(this.state, child);
+        }
+      }
+    } else {
+      // Process as regular element
+      processJSXElement(this.state, this.jsxElement);
     }
   }
 

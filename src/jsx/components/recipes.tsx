@@ -7,7 +7,8 @@ import type {
   CameraProps,
   AmbientLightProps,
   DirectionalLightProps,
-  WorldProps
+  WorldProps,
+  TweenProps
 } from '../types/components';
 
 export function StaticPart(props: StaticPartProps): JSXElement {
@@ -25,7 +26,7 @@ export function KinematicPart(props: KinematicPartProps): JSXElement {
 }
 
 export function Player(props: PlayerProps): JSXElement {
-  return JSX.createElement('player', props, ...(props.children as JSXElement[] || []));
+  return JSX.createElement('player', props);
 }
 
 export function Camera(props: CameraProps): JSXElement {
@@ -44,6 +45,10 @@ export function World(props: WorldProps): JSXElement {
   return JSX.createElement('world', props, ...(props.children as JSXElement[] || []));
 }
 
+export function Tween(props: TweenProps): JSXElement {
+  return JSX.createElement('tween', props, ...(props.children as JSXElement[] || []));
+}
+
 export const Recipes = {
   StaticPart,
   DynamicPart,
@@ -53,4 +58,5 @@ export const Recipes = {
   AmbientLight,
   DirectionalLight,
   World,
+  Tween,
 };

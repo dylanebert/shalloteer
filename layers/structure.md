@@ -51,6 +51,12 @@ shalloteer/
 │   │   ├── transforms/  # Transform hierarchy
 │   │   ├── tweening/  # Tween animations
 │   │   └── defaults.ts  # Default plugin bundle
+│   ├── jsx/  # JSX/TSX support
+│   │   ├── context.md  # JSX module context
+│   │   ├── runtime.ts  # JSX factory and processing
+│   │   ├── entity-creator.ts  # Direct entity creation
+│   │   ├── types/  # TypeScript definitions
+│   │   └── components/  # JSX components
 │   ├── vite/  # Vite plugins
 │   │   ├── index.ts  # Plugin exports
 │   │   ├── console-plugin.ts  # Console forwarding
@@ -58,11 +64,21 @@ shalloteer/
 │   ├── builder.ts  # Builder pattern API
 │   ├── runtime.ts  # Game runtime engine
 │   └── index.ts  # Main exports
-├── example/  # Demo application
+├── example/  # XML demo application
 │   ├── src/
 │   │   └── main.ts
 │   ├── index.html
 │   ├── package.json
+│   └── vite.config.ts
+├── example-jsx/  # JSX demo application
+│   ├── src/
+│   │   ├── main.tsx
+│   │   ├── Game.tsx
+│   │   └── components/
+│   │       └── Playground.tsx
+│   ├── index.html
+│   ├── package.json
+│   ├── tsconfig.json
 │   └── vite.config.ts
 ├── layers/
 │   ├── structure.md  # Project-level context (Tier 1)
@@ -138,10 +154,12 @@ Bevy-inspired ECS with explicit update phases:
 - **Package entry**: src/index.ts (namespace API with builder pattern)
 - **Core module**: src/core/index.ts (ECS foundation, types, utilities)
 - **Plugin modules**: src/plugins/\*/index.ts (individual plugin exports)
+- **JSX module**: src/jsx/index.ts (JSX components and runtime)
 - **Vite plugin**: src/vite/index.ts (WASM setup for Rapier physics)
 - **Builder API**: src/builder.ts (fluent builder pattern)
 - **Runtime**: src/runtime.ts (game runtime engine)
-- **Example app**: example/src/main.ts (demo application)
+- **XML example**: example/src/main.ts (XML demo)
+- **JSX example**: example-jsx/src/main.tsx (JSX demo)
 
 ## Naming Conventions
 

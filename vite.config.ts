@@ -27,6 +27,7 @@ export default defineConfig({
       entry: {
         index: 'src/index.ts',
         'vite/index': 'src/vite/index.ts',
+        'jsx/index': 'src/jsx/index.ts',
       },
       name: 'Shalloteer',
       fileName: (format, entryName) =>

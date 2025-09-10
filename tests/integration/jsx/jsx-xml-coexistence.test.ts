@@ -54,7 +54,6 @@ describe('JSX and XML Coexistence', () => {
 
   it('should allow XML parsing to continue working', () => {
     // Test that the existing XML parser still works
-    const xmlString = '<world><static-part pos="0 0 0" shape="box"></static-part></world>';
     const state = new GAME.State();
     
     // This should not throw
