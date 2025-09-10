@@ -4,22 +4,23 @@ Type-safe component definitions for Shalloteer using JSX/TSX syntax as an altern
 
 ## Purpose
 
-Provides compile-time validated JSX components that bridge to the existing entity creation system, enabling better IDE support and type safety.
+Provides compile-time validated JSX components with direct ECS entity creation, enabling IDE support, type safety, and autocomplete.
 
 ## Structure
 
 - **runtime.ts** - JSX factory functions for element creation
+- **entity-creator.ts** - Direct JSX-to-ECS entity conversion
 - **types/** - TypeScript interfaces for component props
-  - **components.d.ts** - Manual type definitions for all components
-  - **generate.ts** - Automated type generation from Zod (needs fix)
+  - **components.d.ts** - Generated type definitions for all components
+  - **generate.ts** - Type generator script
 - **components/** - JSX component implementations
-  - **Entity.tsx** - Base entity component bridging to ECS
+  - **Entity.tsx** - Base entity component with direct ECS creation
   - **recipes.tsx** - Recipe components (StaticPart, DynamicPart, etc.)
 
 ## Design
 
-JSX elements are transformed at compile-time into factory calls that bridge to the existing recipe system. This maintains full backward compatibility while adding type safety.
+JSX elements are processed directly into ECS entities without recipe indirection. Component props map directly to ECS component fields with automatic type conversion and shorthand expansion.
 
 ## Status
 
-Phase 1 complete with dual XML/JSX support working. Entity creation currently uses recipe bridge - direct creation planned for Phase 2.
+Phase 2 complete with direct entity creation, comprehensive testing, and full TypeScript support. JSX and XML work side-by-side with zero breaking changes.

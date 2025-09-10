@@ -1,8 +1,8 @@
 # JSX Migration
 
 **Branch**: `jsx-migration`  
-**Status**: Phase 1 Complete, Phase 2 In Progress  
-**Tests**: 718/718 passing
+**Status**: Phase 2 Complete  
+**Tests**: 744/748 passing
 
 ## Quick Start
 
@@ -16,16 +16,18 @@ For new conversations: `/peel @MIGRATION.md` to load context.
 - TypeScript interfaces for components
 - Build system configured for TSX
 
-### ⏳ Phase 2 In Progress
-- Recipe components created (need testing)
-- Entity.tsx using recipe bridge (temporary)
-- Type generation script needs fixing
+### ✅ Phase 2 Complete
+- All recipe JSX components tested (26 tests passing)
+- Type generator rewritten and working
+- Direct entity creation implemented (`entity-creator.ts`)
+- JSX and XML coexistence verified
 
 ### Next Steps
-1. Test all recipe JSX components
-2. Fix Zod-to-TypeScript generator
-3. Replace recipe bridge with direct entity creation
-4. Create `example/jsx-demo.tsx`
+1. Create standalone JSX example (separate from XML demo)
+2. Document JSX usage patterns in llms.txt
+3. Phase 3: Kebab-to-camel conversion (102 occurrences)
+4. Phase 4: Deprecation warnings
+5. Phase 5: XML removal
 
 ## Files Created
 
