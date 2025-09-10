@@ -34,3 +34,25 @@ export {
   XMLValueParser,
 } from './xml';
 export type { ParsedElement, XMLValue } from './xml';
+
+export {
+  validateRecipeAttributes,
+  safeValidateRecipeAttributes,
+  validateXMLContent,
+  validateHTMLContent,
+  isValidRecipeName,
+  getAvailableRecipeNames,
+  getRecipeSchema,
+} from './validation';
+
+export type {
+  Vector3,
+  Vector2,
+  Color,
+  Shape,
+  BodyTypeValue,
+  RecipeName,
+  RecipeAttributes,
+  ValidationResult,
+  ValidationOptions,
+} from './validation';

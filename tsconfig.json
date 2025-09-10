@@ -25,7 +25,8 @@
     "baseUrl": ".",
     "paths": {
       "shalloteer": ["./src/index.ts"],
-      "shalloteer/defaults": ["./src/plugins/defaults.ts"]
+      "shalloteer/defaults": ["./src/plugins/defaults.ts"],
+      "shalloteer/core/validation": ["./src/core/validation/index.ts"]
     }
   },
   "include": ["src/**/*", "tests/**/*"],

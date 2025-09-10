@@ -19,6 +19,7 @@ Shalloteer - A vibe coding game engine using ECS architecture with bitECS, featu
 - Type Check: `bun run check` (TypeScript validation)
 - Lint: `bun run lint --fix` (ESLint code analysis and formatting)
 - Test: `bun test` (Unit and integration tests)
+- Validate: `bun run validate` (XML recipe validation)
 
 ## llms.txt
 

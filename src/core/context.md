@@ -8,6 +8,7 @@ Entity Component System foundation with State management and plugin architecture
 
 - ECS scheduler and state management
 - XML parser for declarative entity creation
+- Compile-time and runtime validation for XML recipes
 - Math utilities for 3D transformations
 - Core types and interfaces
 
@@ -31,6 +32,14 @@ core/
 │   ├── types.ts  # XML types
 │   ├── values.ts  # Value parsing
 │   └── index.ts
+├── validation/  # Recipe validation
+│   ├── context.md
+│   ├── schemas.ts  # Zod validation schemas
+│   ├── parser.ts  # Runtime validation
+│   ├── error-formatter.ts  # Error messages
+│   ├── build-validator.ts  # Build-time validation
+│   ├── types.ts  # TypeScript types
+│   └── index.ts
 ├── math/  # Math utilities
 │   ├── context.md
 │   ├── utilities.ts
@@ -44,7 +53,7 @@ core/
 
 ## Scope
 
-- **In-scope**: ECS foundation, XML parsing, math, core types
+- **In-scope**: ECS foundation, XML parsing, recipe validation, math, core types
 - **Out-of-scope**: Game logic, rendering, physics
 
 ## Entry Points

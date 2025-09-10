@@ -55,9 +55,9 @@ describe('Console Forwarding Plugin', () => {
       expect(typeof plugin.configureServer).toBe('function');
     });
 
-    it('should have transformIndexHtml hook', () => {
-      expect(plugin.transformIndexHtml).toBeDefined();
-      expect(typeof plugin.transformIndexHtml).toBe('function');
+    it('should have transform hook', () => {
+      expect(plugin.transform).toBeDefined();
+      expect(typeof plugin.transform).toBe('function');
     });
   });
 
@@ -133,62 +133,75 @@ describe('Console Forwarding Plugin', () => {
   });
 
   describe('Client Code Injection', () => {
-    it('should inject console override script', () => {
-      const html = '<html><head></head><body></body></html>';
+    it('should inject console override script into main.ts', () => {
+      const code = 'console.log("original code");';
+      const id = '/src/main.ts';
 
-      const transform = plugin.transformIndexHtml;
+      const transform = plugin.transform;
       if (transform && typeof transform === 'function') {
-        const result = transform(html, {
-          filename: 'index.html',
-          server: mockServer as ViteDevServer,
-          originalUrl: '/',
-          path: '/',
-        } as any);
+        const result = transform.call({} as any, code, id);
+        const transformedCode = typeof result === 'string' ? result : result;
 
-        const transformedHtml = typeof result === 'string' ? result : result;
-        expect(transformedHtml).toContain('script');
-        expect(transformedHtml).toContain('console');
-        expect(transformedHtml).toContain('import.meta.hot');
+        expect(transformedCode).toContain('import.meta.hot');
+        expect(transformedCode).toContain('originalConsole');
+        expect(transformedCode).toContain('console');
+        expect(transformedCode).toContain('original code');
       }
     });
 
     it('should include all console methods in override', () => {
-      const html = '<html><head></head><body></body></html>';
+      const code = 'console.log("test");';
+      const id = '/src/main.js';
 
-      const transform = plugin.transformIndexHtml;
+      const transform = plugin.transform;
       if (transform && typeof transform === 'function') {
-        const result = transform(html, {} as any);
-        const transformedHtml = typeof result === 'string' ? result : result;
+        const result = transform.call({} as any, code, id);
+        const transformedCode = typeof result === 'string' ? result : result;
 
-        expect(transformedHtml).toContain('log');
-        expect(transformedHtml).toContain('warn');
-        expect(transformedHtml).toContain('error');
-        expect(transformedHtml).toContain('debug');
+        expect(transformedCode).toContain('log');
+        expect(transformedCode).toContain('warn');
+        expect(transformedCode).toContain('error');
+        expect(transformedCode).toContain('debug');
       }
     });
 
     it('should capture stack traces', () => {
-      const html = '<html><head></head><body></body></html>';
+      const code = 'const app = createApp();';
+      const id = '/project/src/main.ts';
 
-      const transform = plugin.transformIndexHtml;
+      const transform = plugin.transform;
       if (transform && typeof transform === 'function') {
-        const result = transform(html, {} as any);
-        const transformedHtml = typeof result === 'string' ? result : result;
+        const result = transform.call({} as any, code, id);
+        const transformedCode = typeof result === 'string' ? result : result;
 
-        expect(transformedHtml).toContain('Error().stack');
+        expect(transformedCode).toContain('Error().stack');
+        expect(transformedCode).toContain('getStackInfo');
       }
     });
 
     it('should send messages via WebSocket', () => {
-      const html = '<html><head></head><body></body></html>';
+      const code = 'export default {}';
+      const id = '/src/main.ts';
 
-      const transform = plugin.transformIndexHtml;
+      const transform = plugin.transform;
       if (transform && typeof transform === 'function') {
-        const result = transform(html, {} as any);
-        const transformedHtml = typeof result === 'string' ? result : result;
+        const result = transform.call({} as any, code, id);
+        const transformedCode = typeof result === 'string' ? result : result;
 
-        expect(transformedHtml).toContain('import.meta.hot.send');
-        expect(transformedHtml).toContain('shalloteer:console');
+        expect(transformedCode).toContain('import.meta.hot.send');
+        expect(transformedCode).toContain('shalloteer:console');
+      }
+    });
+
+    it('should not transform non-main files', () => {
+      const code = 'console.log("component code");';
+      const id = '/src/components/Button.ts';
+
+      const transform = plugin.transform;
+      if (transform && typeof transform === 'function') {
+        const result = transform.call({} as any, code, id);
+
+        expect(result).toBe(code);
       }
     });
   });

@@ -75,8 +75,9 @@
     "!dist/examples"
   ],
   "scripts": {
-    "build": "vite build",
-    "build:release": "bun scripts/build-llm-docs.ts && vite build && vite build --config vite.config.cdn.ts",
+    "validate": "bun src/core/validation/build-validator.ts",
+    "build": "bun run validate && vite build",
+    "build:release": "bun run validate && bun scripts/build-llm-docs.ts && vite build && vite build --config vite.config.cdn.ts",
     "dev": "vite build --watch",
     "check": "tsc --noEmit",
     "example": "bun run build && cd example && bun run dev",
@@ -136,6 +137,7 @@
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "^0.18.2",
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "zod": "^4.1.5"
   }
 }
