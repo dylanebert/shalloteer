@@ -1,3 +1,3 @@
-import { run } from 'shalloteer';
+import * as GAME from 'shalloteer';
 
-run();
+GAME.run();
